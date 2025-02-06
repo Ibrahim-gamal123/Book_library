@@ -6,13 +6,19 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    // عرض نموذج إضافة الكتاب
+    // Show the dashboard
+    public function dashboard()
+    {
+        $books = Book::all();
+        return view('books.index', compact('books'));
+    }
+    // Show the book creation form
     public function create()
     {
         return view('books.create');
     }
 
-    // حفظ الكتاب في قاعدة البيانات
+    // Store a new book in the database
     public function store(Request $request)
     {
         $request->validate([
@@ -28,5 +34,12 @@ class BookController extends Controller
         ]);
 
         return redirect()->route('books.create')->with('success', 'Book added successfully!');
+    }
+
+    // Show all books
+    public function index()
+    {
+        $books = Book::all();
+        return view('books.index', compact('books'));
     }
 }
