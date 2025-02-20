@@ -4,9 +4,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Author extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'price'];
+    protected $fillable = [
+        'name',
+        'email',
+        'jobdescription',
+        'bio',
+        'imageprofile',
+    ];
+
+    // العلاقة One-to-One مع نموذج Book
+    public function book()
+    {
+        return $this->hasOne(Book::class);
+    }
 }
