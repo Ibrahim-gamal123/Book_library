@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal Signup Form</title>
+  <style>
+    /* تنسيق الصفحة */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    /* تنسيق الـ Modal */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+
+    /* تنسيق الخلفية المعتمة */
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    /* أزرار */
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button#signupButton {
+      background-color: #28a745;
+      color: white;
+    }
+
+    button#cancelButton {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    button#submitButton {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- الصفحة الرئيسية -->
+  <h1>Welcome to Our Platform</h1>
+  <button id="signupButton">Sign Up</button>
+
+  <!-- الخلفية المعتمة -->
+  <div id="overlay"></div>
+
+  <!-- الـ Modal -->
+  <div id="modal">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" required><br><br>
+
+      <label for="repeatPassword">Repeat Password:</label><br>
+      <input type="password" id="repeatPassword" name="repeatPassword" required><br><br>
+
+      <input type="checkbox" id="rememberMe" name="rememberMe">
+      <label for="rememberMe">Remember me</label><br><br>
+
+      <button type="button" id="submitButton">Sign Up</button>
+      <button type="button" id="cancelButton">Cancel</button>
+    </form>
+  </div>
+
+  <!-- الصفحة الجديدة -->
+  <div id="welcomePage" style="display: none;">
+    <h1>Welcome!</h1>
+    <p>You have successfully signed up.</p>
+    <button onclick="goBack()">Go Back to Home</button>
+  </div>
+
+  <script>
+    // عناصر الصفحة
+    const modal = document.getElementById('modal');
+    const overlay = document.getElementById('overlay');
+    const signupButton = document.getElementById('signupButton');
+    const cancelButton = document.getElementById('cancelButton');
+    const submitButton = document.getElementById('submitButton');
+    const welcomePage = document.getElementById('welcomePage');
+
+    // عرض الـ Modal
+    signupButton.addEventListener('click', function() {
+      modal.style.display = 'block';
+      overlay.style.display = 'block';
+    });
+
+    // إغلاق الـ Modal
+    cancelButton.addEventListener('click', function() {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+
+    // تسجيل الدخول
+    submitButton.addEventListener('click', function() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const repeatPassword = document.getElementById('repeatPassword').value;
+
+      if (password === repeatPassword) {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+        document.body.innerHTML = '';
+        welcomePage.style.display = 'block';
+        document.body.appendChild(welcomePage);
+      } else {
+        alert('Passwords do not match!');
+      }
+    });
+
+    // العودة إلى الصفحة الرئيسية
+    function goBack() {
+      location.reload();
+    }
+  </script>
+</body>
+</html>
